@@ -590,7 +590,7 @@ RLAPI void rlUnloadTexture(unsigned int id);                              // Unl
 RLAPI void rlGenerateMipmaps(Texture2D *texture);                         // Generate mipmap data for selected texture
 RLAPI void *rlReadTexturePixels(Texture2D texture);                       // Read texture pixel data
 RLAPI unsigned char *rlReadScreenPixels(int width, int height);           // Read screen pixel data (color buffer)
-RLAPI float rlReadDepthBufferAt(int x, int y);                            // Read depth buffer value at given screen position
+RLAPI void rlReadDepthBuffer(float* depthData, int width, int height);    // Read depth buffer value at given screen position
 
 // Framebuffer management (fbo)
 RLAPI unsigned int rlLoadFramebuffer(int width, int height);              // Load an empty framebuffer
@@ -2877,11 +2877,9 @@ unsigned char *rlReadScreenPixels(int width, int height)
 
 
 // Read depth buffer data
-float rlReadDepthBufferAt(int x, int y)
-{
-	float depth = 0;
-	glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-	return depth;
+void rlReadDepthBuffer(float* depthData, int width, int height)
+{	
+	glReadPixels(0, 0, width, height, GL_DEPTH_COMPONENT, GL_FLOAT, depthData);
 }
 
 
