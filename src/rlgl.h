@@ -2874,6 +2874,14 @@ unsigned char *rlReadScreenPixels(int width, int height)
     return imgData;     // NOTE: image data should be freed
 }
 
+// Read depth buffer data
+float rlReadDepthBufferAt(int x, int y)
+{
+	float depth = 0;
+	glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+	return depth;
+}
+
 // Framebuffer management (fbo)
 //-----------------------------------------------------------------------------------------
 // Load a framebuffer to be used for rendering
